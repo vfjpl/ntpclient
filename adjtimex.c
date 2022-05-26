@@ -69,7 +69,7 @@ static const char *ret_code_descript[] = {
 static void usage(char *prog)
 {
 	fprintf(stderr,
-		"Usage: %s [ -q ] [ -o offset ] [ -f frequency ] [ -p timeconstant ] [ -t tick ]\n",
+		"Usage: %s [ -q ] [ -o offset ] [ -f frequency ] [ -m maxerror ] [ -e esterror ] [ -s status ] [ -p timeconstant ] [ -t tick ]\n",
 		prog);
 }
 
@@ -80,7 +80,7 @@ int main(int argc, char ** argv)
 	int c, i, ret, sep;
 	txc.modes=0;
 	for (;;) {
-		c = getopt( argc, argv, "qo:f:p:t:");
+		c = getopt( argc, argv, "qo:f:m:e:s:p:t:");
 		if (c == EOF) break;
 		switch (c) {
 			case 'q':
@@ -93,6 +93,18 @@ int main(int argc, char ** argv)
 			case 'f':
 				txc.freq = atoi(optarg);
 				txc.modes |= ADJ_FREQUENCY;
+				break;
+			case 'm':
+				txc.maxerror = atoi(optarg);
+				txc.modes |= ADJ_MAXERROR;
+				break;
+			case 'e':
+				txc.esterror = atoi(optarg);
+				txc.modes |= ADJ_ESTERROR;
+				break;
+			case 's':
+				txc.status = atoi(optarg);
+				txc.modes |= ADJ_STATUS;
 				break;
 			case 'p':
 				txc.constant = atoi(optarg);
@@ -121,9 +133,9 @@ int main(int argc, char ** argv)
 			"    mode:         %d\n"
 			"-o  offset:       %ld\n"
 			"-f  frequency:    %ld\n"
-			"    maxerror:     %ld\n"
-			"    esterror:     %ld\n"
-			"    status:       %d ( ",
+			"-m  maxerror:     %ld\n"
+			"-e  esterror:     %ld\n"
+			"-s  status:       %d ( ",
 		txc.modes, txc.offset, txc.freq, txc.maxerror,
 		txc.esterror, txc.status);
 
