@@ -154,8 +154,10 @@ static int set_freq(int new_freq)
 	 */
 #ifdef __linux__
 	struct timex txc;
-	txc.modes = ADJ_FREQUENCY;
+	txc.modes = ADJ_FREQUENCY | ADJ_MAXERROR | ADJ_STATUS;
 	txc.freq = new_freq;
+	txc.maxerror = 0;
+	txc.status = 0;
 	if (adjtimex(&txc) < 0) {
 		perror("adjtimex");
 		exit(1);
