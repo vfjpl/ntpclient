@@ -412,7 +412,7 @@ static int rfc1305print(u32 *data, struct ntptime *arrival, struct ntp_control *
 		int new_freq;
 		new_freq = contemplate_data(arrival->coarse, (skew1-skew2)/2,
 			el_time+sec2u(disp), freq);
-		if (!debug && new_freq != freq) set_freq(new_freq);
+		if (!debug) set_freq(new_freq);
 	}
 	printf("%d %.5d.%.3d  %8.1f %8.1f  %8.1f %8.1f %9d\n",
 		arrival->coarse/86400, arrival->coarse%86400,
