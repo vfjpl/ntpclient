@@ -67,7 +67,7 @@ int debug=0;
 #define  REPLAY_OPTION
 #endif
 
-extern char *optarg;  /* according to man 2 getopt */
+//extern char *optarg;  /* according to man 2 getopt */
 
 #include <stdint.h>
 typedef uint32_t u32;  /* universal for C99 */
@@ -81,7 +81,7 @@ typedef uint32_t u32;  /* universal for C99 */
 #include <netdb.h>
 #else
 extern struct hostent *gethostbyname(const char *name);
-extern int h_errno;
+//extern int h_errno;
 #define herror(hostname) \
 	fprintf(stderr,"Error %d looking up hostname %s\n", h_errno,hostname)
 #endif
@@ -164,6 +164,7 @@ static int set_freq(int new_freq)
 	}
 	return txc.freq;
 #else
+	(void)new_freq;
 	return 0;
 #endif
 }
